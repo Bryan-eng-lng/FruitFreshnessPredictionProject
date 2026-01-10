@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fruit Freshness Detector</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #ffecd2, #fcb69f);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      width: 380px;
+      padding: 30px;
+      border-radius: 22px;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    h1 {
+      color: #ff7a00;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #777;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    input[type="file"] {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+
+    button {
+      background: linear-gradient(135deg, #ff9800, #ff5722);
+      border: none;
+      color: white;
+      padding: 12px;
+      width: 100%;
+      border-radius: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.03);
+    }
+
+    .preview img {
+      margin-top: 15px;
+      max-width: 100%;
+      border-radius: 15px;
+      display: none;
+    }
+
+    .result {
+      margin-top: 20px;
+    }
+
+    .label {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .fresh {
+      color: #2ecc71;
+    }
+
+    .rotten {
+      color: #e74c3c;
+    }
+
+    .bar-container {
+      width: 100%;
+      background: #eee;
+      border-radius: 20px;
+      overflow: hidden;
+      height: 22px;
+    }
+
+    .bar {
+      height: 100%;
+      width: 0%;
+      transition: width 1s ease;
+    }
+
+    .confidence {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #444;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h1>🍎 Fruit Freshness</h1>
+    <div class="subtitle">AI powered freshness detection</div>
+
+    <form action="/predict" method="POST" enctype="multipart/form-data">
+      <input type="file" name="image" accept="image/*" required onchange="previewImage(event)">
+      <button type="submit">Analyze</button>
+    </form>
+
+    <div class="preview">
+      <img id="preview">
+    </div>
+
+    {% if label %}
+    <div class="result">
+      <div class="label {{ 'fresh' if label=='Fresh' else 'rotten' }}">
+        {{ label }}
+      </div>
+
+      <div class="bar-container">
+        <div class="bar"
+             style="
+               width: {{ confidence }}%;
+               background: {{ '#2ecc71' if label=='Fresh' else '#e74c3c' }};
+             ">
+        </div>
+      </div>
+
+      <div class="confidence">
+        Confidence: {{ confidence }}%
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <script>
+    function previewImage(event) {
+      const img = document.getElementById("preview");
+      img.src = URL.createObjectURL(event.target.files[0]);
+      img.style.display = "block";
+    }
+  </script>
+</body>
+</html>
