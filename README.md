@@ -1,7 +1,8 @@
+
 # Fruit Freshness Detection (Apple, Banana, Orange)
 
 <img width="1920" height="1020" alt="Screenshot 2026-01-24 133508" src="https://github.com/user-attachments/assets/04b2d6f4-f608-4cfc-8ffb-64ca500593f4" />
-
+<img width="1920" height="1020" alt="Screenshot 2026-01-24 133807" src="https://github.com/user-attachments/assets/537c312d-e6b4-49c5-8ac6-7fbe062a1496" />
 
 This project detects whether a fruit is **Fresh** or **Rotten** using deep learning.  
 It is designed as a practical AI solution for real-world fruit quality inspection in shops, warehouses, and supply chains.
